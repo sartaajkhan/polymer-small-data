@@ -59,3 +59,9 @@ scores = data['scores'] # should be dictionary of {"SRCC" : srcc, "MAE" : mae}
 
 ## OS Requirements
 This package should be working properly on Linux and Windows. In particular, the package has been tested on Ubuntu 22.04.4 LTS.
+
+## Contact information
+If you have any questions, please either submit an issue request or contact one of the team members:
+1. [Sartaaj Takrim Khan](https://github.com/sartaajkhan)
+2. [Mahyar Rajabi Kochi](https://github.com/Mahyar-rajabi94)
+3. [Jose Barraza Chavez](https://github.com/ChemistryPlus)
