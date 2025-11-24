@@ -9,6 +9,20 @@ The source of the polymer labels are from the NeurIPS Open Polymer Prediction Co
 
 <b>Source of data used: https://www.kaggle.com/competitions/neurips-open-polymer-prediction-2025/data.</b>
 
+## Installation
+Python 3.11.9 is recommended for this package. No GPU is required for all the feature selection and hyperparameter tuning, although it is highly encouraged that a strong CPU is required. For a full installation of this package, please refer to the instructions below:
+
+```
+git clone https://github.com/sartaajkhan/polymer-small-data.git
+conda create -n polymer-small python=3.11.9
+conda activate polymer-small
+
+cd path/to/polymer-small-data
+pip install -r requirements.txt
+```
+
+Under the assumption that this is being installed on a fresh environment, the installation time should be around 2 minutes.
+
 ## Usage
 This work can be broken down into the following sections:
 1. <b>Data</b>: The files ```train.csv``` and ```RDKit_descriptors.csv``` are available in the ```data``` folder. These will be referred to for the rest of the work. The ```train.csv``` come directly from the NeurIPS Open Polymer Prediction Competition, and the ```RDKit_descriptors.csv``` are composed of all RDKit descriptors and a few selected topological descriptors.
@@ -41,21 +55,7 @@ hyperparameters = data['bscv_results']['best_parameters']
 features_selected = data['features_used']
 scores = data['scores'] # should be dictionary of {"SRCC" : srcc, "MAE" : mae}
 ```
-7. 
+7. ```uncertainty.ipynb``` is a Python notebook where it details and goes through our uncertainty assessment. The results, upon using the Widget embedded in the notebook (please run this on VS Code by the way, I don't think this will work on Jupyter Notebook), are saved in ```uncertainty/parity_snapshot_label.npy```, in which you can view your uncertainty parity plots by running the notebook in ```uncertainty/uncertainty.ipynb```. The ensemble of models are saved in ```uncertainty/label (for example, Tg)```.
 
 ## OS Requirements
 This package should be working properly on Linux and Windows. In particular, the package has been tested on Ubuntu 22.04.4 LTS.
-
-## Installation
-Python 3.11.9 is recommended for this package. No GPU is required for all the feature selection and hyperparameter tuning, although it is highly encouraged that a strong CPU is required. For a full installation of this package, please refer to the instructions below:
-
-```
-git clone https://github.com/sartaajkhan/polymer-small-data.git
-conda create -n polymer-small python=3.11.9
-conda activate polymer-small
-
-cd path/to/polymer-small-data
-pip install -r requirements.txt
-```
-
-Under the assumption that this is being installed on a fresh environment, the installation time should be around 2 minutes.
