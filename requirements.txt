@@ -8,3 +8,5 @@ xgboost
 scikit-optimize
 loguru
 tabpfn
+rdkit
+rdkit-pypi==2022.9.5
