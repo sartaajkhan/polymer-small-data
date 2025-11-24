@@ -1,0 +1,10 @@
+pandas
+matplotlib
+numpy
+seaborn
+scikit-learn
+scipy
+xgboost
+scikit-optimize
+loguru
+tabpfn
