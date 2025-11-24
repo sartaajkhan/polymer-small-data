@@ -10,7 +10,38 @@ The source of the polymer labels are from the NeurIPS Open Polymer Prediction Co
 <b>Source of data used: https://www.kaggle.com/competitions/neurips-open-polymer-prediction-2025/data.</b>
 
 ## Usage
+This work can be broken down into the following sections:
+1. <b>Data</b>: The files ```train.csv``` and ```RDKit_descriptors.csv``` are available in the ```data``` folder. These will be referred to for the rest of the work. The ```train.csv``` come directly from the NeurIPS Open Polymer Prediction Competition, and the ```RDKit_descriptors.csv``` are composed of all RDKit descriptors and a few selected topological descriptors.
+2. ```eda.ipynb``` is a notebook showcasing our full exploratory data analysis (EDA), alongside comments about it and figures.
+3. ```utils/featurizer.py``` is our featurizer script, in which it contains a class ```Featurizer```, which returns RDKit descriptors and select topological descriptors. If you are interested in using this class for featurizing a SMILES string, here is an example snippet:
+  ```python
+from utils.featurizer import Featurizer
 
+smi = "*CC(*)c1ccccc1C(=O)OCCCCCC"
+features = Featurizer(smi).summary_of_results()
+```
+  
+5. ```utils/optimization.py``` is the script containing functions for RFECV feature selection and hyperparameter tuning using BayesSearchCV.
+6. <b>Important!</b> ```main.py``` is a script that you can run, in which it will utilize ```featurizer.py``` and ```optimization.py``` to featurize and perform RFECV + hyperparameter tuning, while returning the evaluations on the test set. These results will be saved in ```ML_results/tuned_results/label.json```. Some examples of these saved results are already there, in which the .json contains keys for: ```bscv_results```, which contains the best hyperparameters via calling the sub-dictionary ```best_parameters```, alongside the features selected from RFECV in ```features_used```. Finally, the RFECV + tuned model scores on test set are saved under key ```scores```. If you want a summary of how to run main.py:
+```
+cd path/to/polymer-small-data
+python main.py
+```
+If you want to load results for some label after running main.py, here is a small Python snippet as an example:
+```python
+import json
+import os
+
+label = "Tc"
+path_to_json = os.path.join("ML_results/tuned_results", f"{label}.json")
+with open(path_to_json) as json_file:
+  data = json.load(json_file)
+
+hyperparameters = data['bscv_results']['best_parameters']
+features_selected = data['features_used']
+scores = data['scores'] # should be dictionary of {"SRCC" : srcc, "MAE" : mae}
+```
+7. 
 
 ## OS Requirements
 This package should be working properly on Linux and Windows. In particular, the package has been tested on Ubuntu 22.04.4 LTS.
